@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Envelope Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery2.2.4.js"></script>
+    <script src="global.js"></script>
+</head>
+<body>
+  <p>
+    <a href="/logout">Logout</a> | <a href="/">Home</a>
+    Hello, <%= user.name %>!
+  </p>
+
+  <div>
+    <span>Reset envelope: </span>
+    <form action="/envelope/reset" method="post" id="envelopeResetForm">
+      <input type="number" min="0.01" step="0.01" name="amount" id="resetAmount" placeholder="Amount to reset to" />
+      <input type="hidden" name="envelope" value="<%= envelope.rowid %>" />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+  <hr />
+
+  <div>
+    <h3>Envelope</h3>
+
+    <div>
+      <span><strong>Name:</strong> <%= envelope.name %> <strong>Monies:</strong> <%= envelope.monies.toFixed(2) %>
+      <strong>Original Monies:</strong> <%= envelope.originalMonies.toFixed(2) %></span>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <h4>Spend money</h4>
+    <form action="/spend/add" method="post" id="spendForm">
+      <input type="number" min="0.01" step="0.01" name="amount" id="envelopeAmount" placeholder="amount" />
+      <input type="text" name="comment" placeholder="comment" />
+      <input type="hidden" name="envelope" value="<%= envelope.rowid %>" />
+      <input type="hidden" name="startingAmount" value="<%= envelope.monies %>" />
+      <input type="submit" value="Submit" id="spendSubmit" />
+    </form>
+  </div>
+  <hr />
+  <h4>Spends</h4>
+  <% rows.forEach(function(row){ %>
+    <div>
+    	<hr />
+        <span>Amount: <%= row.amount.toFixed(2) %> Comment: <%= row.comment %></span>
+    </div>
+  <% }) %>
+</body>
+</html>

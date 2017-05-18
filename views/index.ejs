@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Envelope Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery2.2.4.js"></script>
+    <script src="global.js"></script>
+</head>
+<body>
+  <a href="/logout">Logout</a>
+  Hello, <%= user.name %>!
+
+  <div>
+  <h4>Add Envelope</h4>
+  <form action="/envelope/add" method="post" id="envelopeAddForm">
+      <input type="number" min="0.01" step="0.01" name="amount" id="envelopeAmount" placeholder="Initial amount" />
+      <input type="text" name="name" placeholder="Envelope Name" />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+
+  <hr />
+  
+  <div>
+    <h4>Envelopes</h4>
+  </div>
+  <% rows.forEach(function(row){ %>
+    <div>
+    	<hr />
+        <span>Name: <%= row.name %> Monies: <%= row.monies %> <a href='/envelope?id=<%= row.rowid %>'>View</a></span>
+        <span><a href="/envelope/subtract?id=<%= row.rowid %>" class="removeEnvelope">Remove</a></span>
+    </div>
+  <% }) %>
+
+</body>
+</html>
